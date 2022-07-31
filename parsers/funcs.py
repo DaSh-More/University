@@ -8,10 +8,10 @@ headers = {
 }
 
 
-def get_html(url):
+def get_html(*url):
     while True:
         try:
-            text = req.get(url, headers=headers).text
+            text = req.get(*url, headers=headers).text
             return bs(text, 'lxml')
         except:
             sleep(1)

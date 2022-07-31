@@ -79,7 +79,7 @@ def save_table(table: dict | list, path: str):
 
 def main():
     main_url = "https://pk.mpei.ru"
-    directions = get_directions(main_url + "/inform/list.html")
+    directions = get_directions(main_url+"/inform/list.html")
     table = get_table(main_url, directions)
     json_save(table, "../data_bases/MEI.json")
 
