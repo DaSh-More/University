@@ -36,3 +36,7 @@ def json_save(obj, path):
     """
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(obj, f, indent=4, ensure_ascii=False)
+
+
+def snils_format(snils):
+    return ''.join(i for i in snils if i.isdigit())

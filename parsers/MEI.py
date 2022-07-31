@@ -1,4 +1,4 @@
-from funcs import get_html
+from funcs import get_html, json_save
 import json
 
 
@@ -81,7 +81,7 @@ def main():
     main_url = "https://pk.mpei.ru"
     directions = get_directions(main_url + "/inform/list.html")
     table = get_table(main_url, directions)
-    save_table(table, "../data_bases/MEI.json")
+    json_save(table, "../data_bases/MEI.json")
 
 
 if __name__ == "__main__":
