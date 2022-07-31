@@ -1,10 +1,12 @@
-import requests as req
-from bs4 import BeautifulSoup as bs
-from time import sleep
 import json
+from time import sleep
+
+import requests as req
+from bs4 import BeautifulSoup as BS
 
 headers = {
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.51 Safari/537.36'
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)\
+AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.51 Safari/537.36'
 }
 
 
@@ -12,17 +14,18 @@ def get_html(*url):
     while True:
         try:
             text = req.get(*url, headers=headers).text
-            return bs(text, 'lxml')
-        except:
+            return BS(text, 'lxml')
+        except req.ConnectionError:
             sleep(1)
 
 
 def get_json(url):
+
     while True:
         try:
             text = req.get(url).json()
             return text
-        except:
+        except req.ConnectionError:
             sleep(1)
 
 
@@ -39,4 +42,13 @@ def json_save(obj, path):
 
 
 def snils_format(snils):
+    """
+    Форматирует снилс
+
+    Args:
+        snils (str): Снилс
+
+    Returns:
+        str: Отфармотированный снилс
+    """
     return ''.join(i for i in snils if i.isdigit())

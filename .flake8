@@ -1,0 +1,3 @@
+[flake8]
+# Import as acronim
+ignore = N817

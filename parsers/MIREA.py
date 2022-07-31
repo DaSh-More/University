@@ -1,6 +1,4 @@
 from funcs import get_html, get_json, json_save
-import json
-from pyperclip import copy
 
 
 def get_directions(url: str) -> dict:
@@ -49,10 +47,7 @@ def get_dir(url: str) -> tuple[str, dict]:
         url (str): Ссылка на направление
 
     Returns:
-        tuple[str, dict]: [
-            Название направления
-            Словарь со студентами
-        ]
+        dict: Словарь со студентами
     """
 
     def snils_format(snils):
@@ -75,10 +70,10 @@ def get_dir(url: str) -> tuple[str, dict]:
 
 def main():
     main_url = "https://priem.mirea.ru/accepted-entrants-list/"
-    main_page_url = "getAllCompetitionsRates_p.php?place=moscow&form=och&level=bach"
+    main_page = "getAllCompetitionsRates_p.php?place=moscow&form=och&level=bach"  # noqa: E501
     dir_url = "personal_code_rating.php?competition="
-    directions = get_directions(main_url+main_page_url)
-    table = get_table(main_url+dir_url, directions)
+    directions = get_directions(main_url + main_page)
+    table = get_table(main_url + dir_url, directions)
     json_save(table, "../data_bases/MIREA.json")
 
 
