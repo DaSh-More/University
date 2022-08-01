@@ -10,20 +10,20 @@ AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.51 Safari/537.36'
 }
 
 
-def get_html(*url):
+def get_html(*args, **kwargs):
     while True:
         try:
-            text = req.get(*url, headers=headers).text
+            text = req.get(*args, **kwargs, headers=headers).text
             return BS(text, 'lxml')
         except req.ConnectionError:
             sleep(1)
 
 
-def get_json(url):
+def get_json(*args, **kwargs):
 
     while True:
         try:
-            text = req.get(url).json()
+            text = req.get(*args, **kwargs).json()
             return text
         except req.ConnectionError:
             sleep(1)
