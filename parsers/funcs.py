@@ -12,7 +12,7 @@ AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.51 Safari/537.36'
 
 
 def get_html(*args, **kwargs):
-    while True:
+    for _ in range(5):
         try:
             text = req.get(*args, **kwargs, headers=headers).text
             return BS(text, 'lxml')
@@ -22,7 +22,7 @@ def get_html(*args, **kwargs):
 
 def get_json(*args, **kwargs):
 
-    while True:
+    for _ in range(5):
         try:
             text = req.get(*args, **kwargs).json()
             return text
