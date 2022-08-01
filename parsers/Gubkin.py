@@ -1,4 +1,4 @@
-from funcs import get_json, json_save, snils_format
+from .funcs import get_json, json_save, snils_format
 
 
 def get_directions(api: str):
@@ -39,12 +39,12 @@ def get_students(api: str, direction):
     return students
 
 
-def main():
+def main(path):
     api = "https://lk.priem.gubkin.ru/abiturients_list/api/api.php"
     directions = get_directions(api)
     table = get_table(api, directions)
-    json_save(table, "../data_bases/FinAk.json")
+    json_save(table, path)
 
 
 if __name__ == "__main__":
-    main()
+    main("../data_bases/Gubkin.json")

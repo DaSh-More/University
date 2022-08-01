@@ -1,5 +1,6 @@
 import json
 from time import sleep
+import pandas as pd
 
 import requests as req
 from bs4 import BeautifulSoup as BS
@@ -52,3 +53,33 @@ def snils_format(snils):
         str: Отфармотированный снилс
     """
     return ''.join(i for i in snils if i.isdigit())
+
+
+def json2xlsx(path_to_json, path_to_xlsx):
+    document = pd.ExcelWriter(path_to_xlsx)
+
+    with open(path_to_json, encoding='utf-8') as f:
+        json_table = json.load(f)
+
+    for direction, data in json_table.items():
+        students = data['students'].items()
+        table = [{'Снилс': snils,
+                  'Баллы': raw['points'],
+                  'Согласие': raw['status'],
+                  'Места': ''} for snils, raw in students]
+        pd_table = pd.DataFrame(table, columns=['Снилс',
+                                                'Баллы',
+                                                'Согласие',
+                                                'Места'])
+
+        pd_table.loc[0, 'Места'] = data['places']
+        pd_table.to_excel(document, sheet_name=direction, index=False)
+    document.save()
+
+
+def main():
+    json2xlsx("../data_bases/MIREA.json", "../Excel/MIREA.xlsx")
+
+
+if __name__ == "__main__":
+    main()

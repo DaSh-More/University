@@ -1,6 +1,6 @@
 import re
 
-from funcs import get_html, json_save
+from .funcs import get_html, json_save
 
 
 def get_directions(url: str) -> list:
@@ -71,12 +71,12 @@ def get_dir(url: str) -> tuple[str, dict]:
     return title, int(places), data
 
 
-def main():
+def main(path):
     main_url = "https://pk.mpei.ru"
     directions = get_directions(main_url + "/inform/list.html")
     table = get_table(main_url, directions)
-    json_save(table, "../data_bases/MEI.json")
+    json_save(table, path)
 
 
 if __name__ == "__main__":
-    main()
+    main("../data_bases/MEI.json")

@@ -1,4 +1,4 @@
-from funcs import get_html, get_json, json_save
+from .funcs import get_html, get_json, json_save
 
 
 def get_directions(url: str) -> dict:
@@ -68,14 +68,14 @@ def get_dir(url: str) -> tuple[str, dict]:
     return data
 
 
-def main():
+def main(path):
     main_url = "https://priem.mirea.ru/accepted-entrants-list/"
     main_page = "getAllCompetitionsRates_p.php?place=moscow&form=och&level=bach"  # noqa: E501
     dir_url = "personal_code_rating.php?competition="
     directions = get_directions(main_url + main_page)
     table = get_table(main_url + dir_url, directions)
-    json_save(table, "../data_bases/MIREA.json")
+    json_save(table, path)
 
 
 if __name__ == "__main__":
-    main()
+    main("../data_bases/MIREA.json")
