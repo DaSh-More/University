@@ -65,10 +65,6 @@ class UniversityAnalysis:
             more_or_less = str(int(self.me['points'] > student['points']))
             status = str(int(not student['status']))
             students[int(more_or_less + status, 2)].append(student['points'])
-        print([len(s) for s in students])
-        # exit()
-
-        # data_table[0], data_table[1] = data_table[1], data_table[0]
         students[0], students[1] = students[1], students[0]
         for n, i in enumerate(students):
             i.sort()
@@ -76,13 +72,12 @@ class UniversityAnalysis:
                 i.append(0)
             data_table[n].append(f'{i[0]} - {i[-1]}')
             data_table[n].append(str(len(i)))
-        add_students = student_rating(students, rating) or 0
+        add_students = student_rating(students[0], rating) or 0
         accepted_best = int(data_table[1][-1])
-        text = f'+{add_students} ({add_students + accepted_best}/{direction["places"]})'
+        text = f'+{add_students} ({add_students + accepted_best}/{direction["places"]})'  # noqa
         data_table[0].append(text)
         data_table[1].append(f'{accepted_best}/{direction["places"]}')
         vacant = direction["places"] - accepted_best - add_students
-        print(vacant)
         data_table[2].append(str(vacant))
         indexes = [10, 15, 20]
         if len(students[0]) + accepted_best < direction["places"]:
@@ -110,16 +105,19 @@ class UniversityAnalysis:
     def print_universities(self):
         for title, unv in self.universities.items():
             rating = unv['rating']
+            print(rating)
             del unv['rating']
             self.console.rule(title)
             for direction in unv.values():
                 if snils in direction['students']:
                     table = self.get_table(direction, rating)
                     self.console.print(table)
+                    print()
 
 
-# snils = int('СНИЛС: ')
-snils = '18727017893'
+snils = int('СНИЛС: ')
+# snils = '18727017893'
 university = UniversityAnalysis(snils)
-university.open_university("data_bases/MEI.json")
+for path in Path("./data_bases/").glob("*.json"):
+    university.open_university(path)
 university.print_universities()
