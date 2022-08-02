@@ -105,17 +105,16 @@ class UniversityAnalysis:
     def print_universities(self):
         for title, unv in self.universities.items():
             rating = unv['rating']
-            print(rating)
             del unv['rating']
             self.console.rule(title)
             for direction in unv.values():
-                if snils in direction['students']:
+                if self.me['snils'] in direction['students']:
                     table = self.get_table(direction, rating)
                     self.console.print(table)
                     print()
 
 
-snils = int('СНИЛС: ')
+snils = input('СНИЛС: ')
 # snils = '18727017893'
 university = UniversityAnalysis(snils)
 for path in Path("./data_bases/").glob("*.json"):
