@@ -115,7 +115,7 @@ class UniversityAnalysis:
                     print()
 
 
-snils = int('СНИЛС: ')
+snils = input('СНИЛС: ')
 # snils = '18727017893'
 university = UniversityAnalysis(snils)
 for path in Path("./data_bases/").glob("*.json"):
